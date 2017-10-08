@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /**
  * Class      : BallMovement
@@ -15,9 +16,12 @@ public class Ball : MonoBehaviour {
     private Rigidbody2D ballRigidBody;
     private Paddle leftPaddleScript;
     private Paddle rightPaddleScript;
+    private bool canReset = false;
+    private bool isWaiting = false;
 
     // Public variables in order to be set on the inspector
     public float speed = 0.0f;
+    public float afterScoreWait = 0.0f;
 
     // Use this for initialization
     void Start ()
@@ -40,18 +44,94 @@ public class Ball : MonoBehaviour {
     // Like update method that will be refreshed once per frame, but to be used with physics.
     void FixedUpdate()
     {
-        if(ballRigidBody.position.x < leftPaddleScript.GetPaddleLeftBoundary() || ballRigidBody.position.x > rightPaddleScript.GetPaddleRightBoundary())
+        if(HasAnyPaddleScored())
         {
-            ResetObjects();
+            // Keep waiting for some milliseconds
+            if(!canReset)
+            {
+                if (!isWaiting)
+                {
+                    StartCoroutine(WaitResetAfterScore());
+                }
+            }
+            // Waited for the defined time. Let's reset the ball's position.
+            else
+            {
+                ResetBall(GetBallDirectionAfterScore());
+            }
         }
     }
 
-    void ResetObjects()
+    /**
+     * Method     : WaitResetAfterScore
+     * Return     : An asynchronous delayed time to be waited after a score happens.
+     * Description: This method will wait for the specied number of seconds before freein the ball reset.
+     */
+    IEnumerator WaitResetAfterScore()
     {
-        leftPaddleScript.ResetPosition();
-        rightPaddleScript.ResetPosition();
+        // Let's wait some milliseconds before throwing the ball again.
+        isWaiting = true;
+        yield return new WaitForSeconds(afterScoreWait);
+        canReset = true;
+        isWaiting = false;
+    }
+
+    /**
+     * Method     : ResetBall
+     * Param      : <b>ballDirection</b> : The direction (left or right) in which the ball will be thrown.
+     * Return     : The direction the ball will start.
+     * Description: This method will reset the ball to (0, 0) and throw it in the correct direction after a score.
+     */
+    void ResetBall(Vector2 ballDirection)
+    {
         ballRigidBody.position = new Vector2(0, 0);
-        ballRigidBody.velocity = Vector2.right * speed;
+        ballRigidBody.velocity = ballDirection * speed;
+        canReset = false;
+    }
+
+    /**
+     * Method     : HasLefPaddletScored
+     * Return     : True if the left paddle has scored. False otherwise.
+     * Description: This method will check score condition for the left paddle and return accordingly.
+     */
+    bool HasLefPaddletScored()
+    {
+        return ballRigidBody.position.x > rightPaddleScript.GetPaddleRightBoundary();
+    }
+
+    /**
+     * Method     : HasRightPaddleScored
+     * Return     : True if the right paddle has scored. False otherwise.
+     * Description: This method will check score condition for the right paddle and return accordingly.
+     */
+    bool HasRightPaddleScored()
+    {
+        return ballRigidBody.position.x < leftPaddleScript.GetPaddleLeftBoundary();
+    }
+
+    /**
+     * Method     : HasAnyPaddleScored
+     * Return     : True if either the right paddle or the left paddle has scored. False otherwise.
+     * Description: This method will check score condition for either the right paddle or the left paddle and return accordingly.
+     */
+    bool HasAnyPaddleScored()
+    {
+        return HasLefPaddletScored() || HasRightPaddleScored();
+    }
+
+    /**
+     * Method     : GetBallDirectionAfterScore
+     * Return     : The correct ball direction after a score.
+     * Description: This method will check which paddle has scored and return the ball direction accordingly.
+     */
+    Vector2 GetBallDirectionAfterScore()
+    {
+        if(HasLefPaddletScored())
+        {
+            return Vector2.right;
+        }
+
+        return Vector2.left;
     }
 
     /**

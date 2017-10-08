@@ -35,16 +35,21 @@ public class Paddle : MonoBehaviour {
         paddleRigidBody.position = new Vector2(paddleRigidBody.position.x, Mathf.Clamp(paddleRigidBody.position.y, boundary.yMin, boundary.yMax));
     }
 
-    public void ResetPosition()
-    {
-        paddleRigidBody.position = new Vector2(paddleRigidBody.position.x, 0);
-    }
-
+    /**
+     * Method     : GetPaddleLeftBoundary
+     * Return     : The calculated paddle's left boundary X position.
+     * Description: This method will calculate and return the paddle's left boundary X position.
+     */
     public float GetPaddleLeftBoundary()
     {
         return paddleRigidBody.position.x - paddleRenderer.bounds.size.x / 2;
     }
 
+    /**
+     * Method     : GetPaddleRightBoundary
+     * Return     : The calculated paddle's right boundary X position.
+     * Description: This method will calculate and return the paddle's right boundary X position.
+     */
     public float GetPaddleRightBoundary()
     {
         return paddleRigidBody.position.x + paddleRenderer.bounds.size.x / 2;
