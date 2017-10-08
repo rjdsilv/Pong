@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 1389457959}
   - component: {fileID: 1389457961}
   - component: {fileID: 1389457962}
+  - component: {fileID: 1389457963}
   m_Layer: 0
   m_Name: PaddleRight
   m_TagString: Untagged
@@ -462,6 +463,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 1.2}
   m_EdgeRadius: 0
+--- !u!114 &1389457963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1389457958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ab33802f1bcda44aa2127dec5ed87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
 --- !u!1 &1581520042
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,4 +883,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5848ebeafc2994abe9449f59b616cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15
