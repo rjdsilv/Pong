@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1389457962}
   - component: {fileID: 1389457963}
   m_Layer: 0
-  m_Name: PaddleRight
+  m_Name: RightPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,10 +471,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1389457958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32ab33802f1bcda44aa2127dec5ed87e, type: 3}
+  m_Script: {fileID: 11500000, guid: c8bfe50dccc217246accdf81f75f4d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  boundary:
+    xMin: 0
+    xMax: 0
+    yMin: -4.3
+    yMax: 4.3
+  inputAxisName: RightPaddle
 --- !u!1 &1581520042
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +772,7 @@ GameObject:
   - component: {fileID: 1837848691}
   - component: {fileID: 1837848692}
   m_Layer: 0
-  m_Name: PaddleLeft
+  m_Name: LeftPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -880,7 +886,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1837848687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c5848ebeafc2994abe9449f59b616cf, type: 3}
+  m_Script: {fileID: 11500000, guid: c8bfe50dccc217246accdf81f75f4d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  boundary:
+    xMin: 0
+    xMax: 0
+    yMin: -4.3
+    yMax: 4.3
+  inputAxisName: LeftPaddle
