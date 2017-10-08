@@ -14,8 +14,6 @@ public class Ball : MonoBehaviour {
 
     // Attributes declararion.
     private Rigidbody2D ballRigidBody;
-    private Paddle leftPaddleScript;
-    private Paddle rightPaddleScript;
     private bool canReset = false;
     private bool isWaiting = false;
 
@@ -27,8 +25,6 @@ public class Ball : MonoBehaviour {
     void Start ()
     {
         ballRigidBody = GetComponent<Rigidbody2D>();
-        leftPaddleScript = GameObject.Find("LeftPaddle").GetComponent<Paddle>();
-        rightPaddleScript = GameObject.Find("RightPaddle").GetComponent<Paddle>();
         ballRigidBody.velocity = Vector2.right * speed;
     }
 
