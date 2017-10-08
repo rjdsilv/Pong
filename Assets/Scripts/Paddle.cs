@@ -8,8 +8,9 @@ using Pong;
  * Version    : 1.0
  */
 public class Paddle : MonoBehaviour {
-    // The paddle as a rigid body.
-    private Rigidbody2D paddle;
+    // Attributes declararion.
+    private Rigidbody2D paddleRigidBody;
+    private Renderer paddleRenderer;
 
     /**
      * Public variables in order to be set on the inspector
@@ -21,7 +22,8 @@ public class Paddle : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        paddle = GetComponent<Rigidbody2D>();
+        paddleRigidBody = GetComponent<Rigidbody2D>();
+        paddleRenderer = GetComponent<Renderer>();
     }
 
     // FixedUpdate is called once per frame and is to be used with physics.
@@ -29,7 +31,22 @@ public class Paddle : MonoBehaviour {
     {
         float verticalMovement = Input.GetAxis(inputAxisName);
         Vector2 movement = new Vector2(0, verticalMovement);
-        paddle.velocity = movement * speed;
-        paddle.position = new Vector2(paddle.position.x, Mathf.Clamp(paddle.position.y, boundary.yMin, boundary.yMax));
+        paddleRigidBody.velocity = movement * speed;
+        paddleRigidBody.position = new Vector2(paddleRigidBody.position.x, Mathf.Clamp(paddleRigidBody.position.y, boundary.yMin, boundary.yMax));
+    }
+
+    public void ResetPosition()
+    {
+        paddleRigidBody.position = new Vector2(paddleRigidBody.position.x, 0);
+    }
+
+    public float GetPaddleLeftBoundary()
+    {
+        return paddleRigidBody.position.x - paddleRenderer.bounds.size.x / 2;
+    }
+
+    public float GetPaddleRightBoundary()
+    {
+        return paddleRigidBody.position.x + paddleRenderer.bounds.size.x / 2;
     }
 }
