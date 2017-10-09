@@ -14,12 +14,12 @@ public class GameController : MonoBehaviour {
     private PaddleController leftPaddleController;
     private PaddleController rightPaddleController;
     private BallController ballController;
+    private GUIText leftScore;
+    private GUIText rightScore;
 
     // Control attributes declaration.
     private bool canReset = false;
     private bool isWaiting = false;
-    private bool hasLeftPaddleScored = false;
-    private bool hasRightPaddleScored = false;
     private int leftPaddleScore = 0;
     private int rightPaddleScore = 0;
 
@@ -29,9 +29,20 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        leftPaddleController = GameObject.Find("LeftPaddle").GetComponent<PaddleController>();
-        rightPaddleController = GameObject.Find("RightPaddle").GetComponent<PaddleController>();
-        ballController = GameObject.Find("Ball").GetComponent<BallController>();
+        // Paddle scripts.
+        leftPaddleController = GameObject.Find(PaddleController.LEFT_PADDLE_NAME).GetComponent<PaddleController>();
+        rightPaddleController = GameObject.Find(PaddleController.RIGHT_PADDLE_NAME).GetComponent<PaddleController>();
+
+        // Ball script.
+        ballController = GameObject.Find(BallController.BALL_NAME).GetComponent<BallController>();
+
+        // Score texts.
+        leftScore = GameObject.Find("LeftScore").GetComponent<GUIText>();
+        rightScore = GameObject.Find("RightScore").GetComponent<GUIText>();
+
+        // Let's set up the score position for each paddle.
+        leftScore.transform.SetPositionAndRotation(new Vector3(0.25f, 0.8f, 1.0f), new Quaternion());
+        rightScore.transform.SetPositionAndRotation(new Vector3(0.75f, 0.8f, 1.0f), new Quaternion());
 
         // Resets the player preferences.
         PlayerPrefs.DeleteAll();
@@ -80,8 +91,6 @@ public class GameController : MonoBehaviour {
         yield return new WaitForSeconds(afterScoreWait);
         canReset = true;
         isWaiting = false;
-        hasLeftPaddleScored = false;
-        hasRightPaddleScored = false;
     }
 
 
@@ -92,7 +101,7 @@ public class GameController : MonoBehaviour {
      */
     void SetBallResetDirectionAfterScore()
     {
-        if(HasLefPaddletScored())
+        if(HasLeftPaddletScored())
         {
             ballController.SetBallStartDirection(Vector2.right);
         }
@@ -107,11 +116,10 @@ public class GameController : MonoBehaviour {
      * Return     : True if the left paddle has scored. False otherwise.
      * Description: This method will check score condition for the left paddle and return accordingly.
      */
-    bool HasLefPaddletScored()
+    bool HasLeftPaddletScored()
     {
         if (ballController.GetBallPositionX() >= rightPaddleController.GetPaddleRightBoundary())
         {
-            hasLeftPaddleScored = true;
             return true;
         }
         return false;
@@ -127,7 +135,6 @@ public class GameController : MonoBehaviour {
     {
         if (ballController.GetBallPositionX() <= leftPaddleController.GetPaddleLeftBoundary())
         {
-            hasRightPaddleScored = true;
             return true;
         }
         return false;
@@ -140,7 +147,7 @@ public class GameController : MonoBehaviour {
      */
     bool HasAnyPaddleScored()
     {
-        return HasLefPaddletScored() || HasRightPaddleScored();
+        return HasLeftPaddletScored() || HasRightPaddleScored();
     }
 
     /**
@@ -179,13 +186,15 @@ public class GameController : MonoBehaviour {
      */
     void IncreaseProperPaddleScore()
     {
-        if(hasLeftPaddleScored)
+        if(HasLeftPaddletScored())
         {
             leftPaddleScore++;
+            leftScore.text = leftPaddleScore.ToString();
         }
-        else if(hasRightPaddleScored)
+        else if(HasRightPaddleScored())
         {
             rightPaddleScore++;
+            rightScore.text = rightPaddleScore.ToString();
         }
     }
 

@@ -8,6 +8,8 @@
  * Version    : 1.0
  */
 public class BallController : MonoBehaviour {
+    public const string BALL_NAME = "Ball";
+
     // Attributes declararion.
     private Vector2 direction;
     private Rigidbody2D ballRigidBody;
