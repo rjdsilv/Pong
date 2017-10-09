@@ -226,6 +226,48 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 1.2}
   m_EdgeRadius: 0
+--- !u!1 &1022926793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1022926794}
+  - component: {fileID: 1022926795}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1022926794
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1022926793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.32295433, y: 0.36893108, z: -0.20701012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1022926795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1022926793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd1a4eec7614d44389da757528301ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winScore: 11
+  afterScoreWait: 1
 --- !u!1 &1053819102
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +654,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  afterScoreWait: 1
 --- !u!1 &1655509303
 GameObject:
   m_ObjectHideFlags: 0

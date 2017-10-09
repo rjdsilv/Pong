@@ -2,12 +2,16 @@
 using Pong;
 
 /**
- * Class      : PaddleMovement
- * Description: This class will have the  paddle movement programed in order to make both paddles moving on the screen.
+ * Class      : PaddleController
+ * Description: This class will have the paddle control programed in order to make both paddles moving on the screen.
  * Author     : Rodrigo Januario da Silva
  * Version    : 1.0
  */
-public class Paddle : MonoBehaviour {
+public class PaddleController : MonoBehaviour {
+    // Constant declaration.
+    public const string LEFT_PADDLE_NAME = "LeftPaddle";
+    public const string RIGHT_PADDLE_NAME = "RightPaddle";
+
     // Attributes declararion.
     private Rigidbody2D paddleRigidBody;
     private Renderer paddleRenderer;
