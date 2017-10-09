@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /**
  * Class      : GameController
@@ -31,6 +32,9 @@ public class GameController : MonoBehaviour {
         leftPaddleController = GameObject.Find("LeftPaddle").GetComponent<PaddleController>();
         rightPaddleController = GameObject.Find("RightPaddle").GetComponent<PaddleController>();
         ballController = GameObject.Find("Ball").GetComponent<BallController>();
+
+        // Resets the player preferences.
+        PlayerPrefs.DeleteAll();
     }
 
     // Like update method that will be refreshed once per frame, but to be used with physics.
@@ -59,7 +63,7 @@ public class GameController : MonoBehaviour {
             }
             else
             {
-                Debug.Log("GAME OVER");
+                GameOver();
             }
         }
     }
@@ -183,5 +187,30 @@ public class GameController : MonoBehaviour {
         {
             rightPaddleScore++;
         }
+    }
+
+    /**
+     * Method     : GameOver
+     * Description: This method will store the winner player and store the next scene.
+     */
+    void GameOver()
+    {
+        // If the key exists, remove it first.
+        if (PlayerPrefs.HasKey("winner"))
+        {
+            PlayerPrefs.DeleteKey("winner");
+        }
+
+        // Determines the winner to be stored.
+        if (LeftPaddleWon())
+        {
+            PlayerPrefs.SetInt("winner", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("winner", 2);
+        }
+
+        SceneManager.LoadScene("GameOver");
     }
 }
